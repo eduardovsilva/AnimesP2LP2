@@ -1,5 +1,6 @@
 package com.animes.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -21,6 +22,8 @@ public class Admin extends Usuario{
 
 	public Admin(Integer id, String nome) {
 		super(id, nome);
+		this.animesAdicionados = new ArrayList<Anime>();
+		this.generosAdicionados = new ArrayList<Genero>();
 		
 	}
 

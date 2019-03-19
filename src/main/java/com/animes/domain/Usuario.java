@@ -1,5 +1,6 @@
 package com.animes.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -35,6 +36,8 @@ public class Usuario {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.avaliacoesFeitasNota = new ArrayList<AvNota>();
+		this.avaliacoesFeitasTexto = new ArrayList<AvTexto>();
 	}
 
 	public Integer getId() {

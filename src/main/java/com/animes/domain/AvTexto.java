@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class AvTexto {
@@ -14,11 +14,11 @@ public class AvTexto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "anime_id")
 	private Anime anime;
 	
