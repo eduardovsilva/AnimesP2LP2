@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Genero {
@@ -21,9 +22,9 @@ public class Genero {
 
 	private String nome;
 	
-	@ManyToOne
+	/*@OneToOne
 	@JoinColumn(name = "admin_id")
-	private Admin admin;
+	private Admin admin;*/
 	
 	@ManyToMany(fetch = FetchType.LAZY,
             	cascade = {

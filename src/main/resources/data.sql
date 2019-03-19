@@ -1,12 +1,12 @@
 insert into usuario(id, tipo_usuario, nome) values(1, 'admin', 'dudu')
 
-insert into anime(id, nome, episodios, classificacao, admin_id) values(1, 'teste', 12, 'pg-13', 1)
+insert into anime(id, nome, episodios, classificacao) values(1, 'teste', 12, 'pg-13')
 
-insert into anime(id, nome, episodios, classificacao, admin_id) values(2, 'teste2', 14, 'r-18', 1)
+insert into anime(id, nome, episodios, classificacao) values(2, 'teste2', 14, 'r-18')
 
-insert into genero(id, nome, admin_id) values(1, 'genero1', 1)
-insert into genero(id, nome, admin_id) values(2, 'genero2', 1)
-insert into genero(id, nome, admin_id) values(3, 'genero3', 1)
+insert into genero(id, nome) values(1, 'genero1')
+insert into genero(id, nome) values(2, 'genero2')
+insert into genero(id, nome) values(3, 'genero3')
 
 insert into anime_genero(anime_id, genero_id) values (1, 1)
 insert into anime_genero(anime_id, genero_id) values (1, 2)

@@ -12,6 +12,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Anime {
@@ -38,9 +39,9 @@ public class Anime {
 	@OneToMany(mappedBy = "anime")
 	private List<AvTexto> avaliacoesTexto;
 	
-	@ManyToOne
+	/*@OneToOne
 	@JoinColumn(name = "admin_id")
-	private Admin admin;
+	private Admin admin;*/
 
 	public Anime() {}
 	
