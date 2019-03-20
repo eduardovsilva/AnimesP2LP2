@@ -5,7 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class AvTexto {
@@ -14,21 +15,22 @@ public class AvTexto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@OneToOne
+	private String corpo;
+	
+	@JsonBackReference(value = "usuario_textos")
+	@ManyToOne
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	
-	@OneToOne
+	@JsonBackReference(value = "anime_textos")
+	@ManyToOne
 	@JoinColumn(name = "anime_id")
 	private Anime anime;
 	
-	private String corpo;
-	
 	public AvTexto() {}
 
-	public AvTexto(Integer id, Usuario usuario, Anime anime, String corpo) {
+	public AvTexto(Usuario usuario, Anime anime, String corpo) {
 		super();
-		this.id = id;
 		this.usuario = usuario;
 		this.anime = anime;
 		this.corpo = corpo;
@@ -42,28 +44,28 @@ public class AvTexto {
 		this.id = id;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public Anime getAnime() {
-		return anime;
-	}
-
-	public void setAnime(Anime anime) {
-		this.anime = anime;
-	}
-
 	public String getCorpo() {
 		return corpo;
 	}
 
 	public void setCorpo(String corpo) {
 		this.corpo = corpo;
+	}
+
+	public Integer getUsuarioId() {
+		return usuario.getId();
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Integer getAnimeId() {
+		return anime.getId();
+	}
+
+	public void setAnime(Anime anime) {
+		this.anime = anime;
 	}
 	
 }

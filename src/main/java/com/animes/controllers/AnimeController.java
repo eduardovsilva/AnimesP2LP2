@@ -1,6 +1,5 @@
 package com.animes.controllers;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import com.animes.domain.Anime;
 import com.animes.repository.AnimeRepository;
 
@@ -39,13 +36,9 @@ public class AnimeController {
 	}
 	
 	@PostMapping("/animes")
-	public ResponseEntity<?> saveAnime(@RequestBody Anime anime) {
-		Anime savedAnime = repository.save(anime);
+	public void saveAnime(@RequestBody Anime anime) {
+		 repository.save(anime);
 
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedAnime.getId())
-				.toUri();
-
-		return ResponseEntity.created(uri).body("anime added");
 	}
 
 	@PutMapping("/animes/{id}")

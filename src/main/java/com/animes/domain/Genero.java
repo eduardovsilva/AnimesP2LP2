@@ -8,10 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Genero {
@@ -22,10 +19,6 @@ public class Genero {
 
 	private String nome;
 	
-	/*@OneToOne
-	@JoinColumn(name = "admin_id")
-	private Admin admin;*/
-	
 	@ManyToMany(fetch = FetchType.LAZY,
             	cascade = {
             			CascadeType.PERSIST,
@@ -35,9 +28,8 @@ public class Genero {
 	
 	public Genero() {}
 
-	public Genero(Integer id, String nome) {
+	public Genero( String nome) {
 		super();
-		this.id = id;
 		this.nome = nome;
 	}
 

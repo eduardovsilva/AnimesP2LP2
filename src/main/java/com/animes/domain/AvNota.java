@@ -5,7 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class AvNota {
@@ -14,21 +15,22 @@ public class AvNota {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@OneToOne
+	private int valor;
+	
+	@JsonBackReference(value = "usuario_notas")
+	@ManyToOne
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	
-	@OneToOne
+	@JsonBackReference(value = "anime_notas")
+	@ManyToOne
 	@JoinColumn(name = "anime_id")
 	private Anime anime;
 	
-	private int valor;
-	
 	public AvNota() {}
 
-	public AvNota(Integer id, Usuario usuario, Anime anime, int valor) {
+	public AvNota(Usuario usuario, Anime anime, int valor) {
 		super();
-		this.id = id;
 		this.usuario = usuario;
 		this.anime = anime;
 		this.valor = valor;
@@ -42,28 +44,28 @@ public class AvNota {
 		this.id = id;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public Anime getAnime() {
-		return anime;
-	}
-
-	public void setAnime(Anime anime) {
-		this.anime = anime;
-	}
-
 	public int getValor() {
 		return valor;
 	}
 
 	public void setValor(int valor) {
 		this.valor = valor;
+	}
+
+	public Integer getUsuarioId() {
+		return usuario.getId();
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Integer getAnimeId() {
+		return anime.getId();
+	}
+
+	public void setAnime(Anime anime) {
+		this.anime = anime;
 	}
 
 }

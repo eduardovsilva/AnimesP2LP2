@@ -13,6 +13,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_usuario")
@@ -24,17 +26,18 @@ public class Usuario {
 
 	private String nome;
 	
+	@JsonManagedReference(value = "usuario_notas")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
 	private List<AvNota> avaliacoesFeitasNota;
 	
+	@JsonManagedReference(value = "usuario_textos")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
 	private List<AvTexto> avaliacoesFeitasTexto;
 	
 	public Usuario() {}
 
-	public Usuario(Integer id, String nome) {
+	public Usuario(String nome) {
 		super();
-		this.id = id;
 		this.nome = nome;
 		this.avaliacoesFeitasNota = new ArrayList<AvNota>();
 		this.avaliacoesFeitasTexto = new ArrayList<AvTexto>();
