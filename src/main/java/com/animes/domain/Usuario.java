@@ -25,6 +25,7 @@ public class Usuario {
 	private Integer id;
 
 	private String nome;
+	private String tipo_usuario;
 	
 	@JsonManagedReference(value = "usuario_notas")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
@@ -57,7 +58,10 @@ public class Usuario {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	};
+	}
 	
+	public String getTipo() {
+		return tipo_usuario;
+	}
 	
 }

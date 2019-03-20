@@ -24,7 +24,7 @@ public class AnimeController {
 	@GetMapping("/animes")
 	public List<Anime> getAllAnimes() {
 		List<Anime> animes = repository.findAll();
-
+	
 		return animes;
 	}
 

@@ -22,4 +22,4 @@ insert into av_nota(id, usuario_id, anime_id, valor) values(2, 2, 1, 8)
 insert into av_nota(id, usuario_id, anime_id, valor) values(3, 1, 2, 8)
 
 insert into av_texto(id, usuario_id, anime_id, corpo) values(1, 1, 1, 'abc')
-insert into av_texto(id, usuario_id, anime_id, corpo) values(2, 1, 2, 'def')
+insert into av_texto(id, usuario_id, anime_id, corpo) values(2, 2, 2, 'def')

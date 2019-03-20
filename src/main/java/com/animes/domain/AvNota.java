@@ -33,7 +33,12 @@ public class AvNota {
 		super();
 		this.usuario = usuario;
 		this.anime = anime;
-		this.valor = valor;
+		if (valor < 0 || valor > 10) {
+			throw new IllegalArgumentException("A nota precisa estar entre 0 e 10");
+		} else {
+			this.valor = valor;
+		}
+		
 	}
 
 	public Integer getId() {
@@ -49,7 +54,11 @@ public class AvNota {
 	}
 
 	public void setValor(int valor) {
-		this.valor = valor;
+		if (valor < 0 || valor > 10) {
+			throw new IllegalArgumentException("A nota precisa estar entre 0 e 10");
+		} else {
+			this.valor = valor;
+		}
 	}
 
 	public Integer getUsuarioId() {
