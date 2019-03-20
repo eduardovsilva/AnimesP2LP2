@@ -18,12 +18,12 @@ public class AvTexto {
 	private String corpo;
 	
 	@JsonBackReference(value = "usuario_textos")
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	
 	@JsonBackReference(value = "anime_textos")
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "anime_id")
 	private Anime anime;
 	

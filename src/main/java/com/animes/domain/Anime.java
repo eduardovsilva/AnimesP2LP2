@@ -27,8 +27,8 @@ public class Anime {
 	
 	@ManyToMany
 	@JoinTable(name = "anime_genero",
-	        joinColumns = @JoinColumn(name = "anime_id", referencedColumnName = "id"),
-	        inverseJoinColumns = @JoinColumn(name = "genero_id", referencedColumnName = "id"))
+	        	joinColumns = @JoinColumn(name = "anime_id", referencedColumnName = "id"),
+	        	inverseJoinColumns = @JoinColumn(name = "genero_id", referencedColumnName = "id"))
 	private List<Genero> generos;
 	
 	@JsonManagedReference(value = "anime_notas")

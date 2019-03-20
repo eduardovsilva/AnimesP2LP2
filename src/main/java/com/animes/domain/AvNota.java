@@ -18,12 +18,12 @@ public class AvNota {
 	private int valor;
 	
 	@JsonBackReference(value = "usuario_notas")
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	
 	@JsonBackReference(value = "anime_notas")
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "anime_id")
 	private Anime anime;
 	
