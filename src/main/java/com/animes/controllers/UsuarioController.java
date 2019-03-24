@@ -1,8 +1,6 @@
 package com.animes.controllers;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,9 +24,9 @@ public class UsuarioController {
 		return usuarios;
 	}
 
-	@GetMapping("/usuarios/{id}")
-	public Optional<Usuario> getUsuario(@PathVariable int id) {
-		Optional<Usuario> usuario = repository.findById(id);
+	@GetMapping("/usuarios/{login}")
+	public Usuario getUsuario(@PathVariable String login) {
+		Usuario usuario = repository.findByLogin(login);
 		
 		return usuario;
 	}

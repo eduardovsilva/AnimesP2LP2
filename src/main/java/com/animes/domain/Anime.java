@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -26,18 +27,14 @@ public class Anime {
 	private String classificacao;
 	
 	@ManyToMany
-	@JoinTable(name = "anime_genero",
+	@JoinTable(name = "animes_generos",
 	        	joinColumns = @JoinColumn(name = "anime_id", referencedColumnName = "id"),
-	        	inverseJoinColumns = @JoinColumn(name = "genero_id", referencedColumnName = "id"))
+	        	inverseJoinColumns = @JoinColumn(name = "genero_id", referencedColumnName = "nome"))
 	private List<Genero> generos;
 	
-	@JsonManagedReference(value = "anime_notas")
+	@JsonManagedReference(value = "anime_avaliacoes")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "anime")
-	private List<AvNota> avaliacoesNota;
-	
-	@JsonManagedReference(value = "anime_textos")
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "anime")
-	private List<AvTexto> avaliacoesTexto;
+	private List<Avaliacao> avaliacoes;
 
 	public Anime() {}
 	
@@ -47,8 +44,7 @@ public class Anime {
 		this.episodios = episodios;
 		this.classificacao = classificacao;
 		this.generos =  new ArrayList<Genero>();
-		this.avaliacoesNota = new ArrayList<AvNota>();
-		this.avaliacoesTexto = new ArrayList<AvTexto>();
+		this.avaliacoes = new ArrayList<Avaliacao>();
 	}
 
 	public Integer getId() {
@@ -87,21 +83,17 @@ public class Anime {
 		return generos;
 	}
 
-	public List<AvNota> getAvaliacoesNota() {
-		return avaliacoesNota;
-	}
-
-	public List<AvTexto> getAvaliacoesTexto() {
-		return avaliacoesTexto;
+	public List<Avaliacao> getAvaliacoes() {
+		return avaliacoes;
 	}
 		
 	public float getNotaMedia() {
 		float soma = 0;
-		for (AvNota n: avaliacoesNota) {
-			soma += n.getValor();
+		for (Avaliacao n: avaliacoes) {
+			soma += n.getNota();
 		}
 		
-		return soma / avaliacoesNota.size();
+		return soma / avaliacoes.size();
 	}
 }
 

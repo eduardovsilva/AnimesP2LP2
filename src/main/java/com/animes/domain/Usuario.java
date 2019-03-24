@@ -1,67 +1,110 @@
 package com.animes.domain;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo_usuario")
-public class Usuario {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+public class Usuario implements UserDetails{
 
-	private String nome;
-	private String tipo_usuario;
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@Column(unique = true)
+	private String login;
 	
-	@JsonManagedReference(value = "usuario_notas")
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-	private List<AvNota> avaliacoesFeitasNota;
+	private String senha;
 	
-	@JsonManagedReference(value = "usuario_textos")
+	@ManyToMany
+	@JoinTable(name = "usuarios_papeis",
+				joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "login"),
+				inverseJoinColumns = @JoinColumn(name = "papel_id", referencedColumnName = "tipoUsuario"))
+	private List<Papel> papeis; 
+	
+	@JsonManagedReference(value = "usuario_avaliacoes")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-	private List<AvTexto> avaliacoesFeitasTexto;
+	private List<Avaliacao> avaliacoesFeitas;
 	
 	public Usuario() {}
 
-	public Usuario(String nome) {
+	public Usuario(String login, String senha) {
 		super();
-		this.nome = nome;
-		this.avaliacoesFeitasNota = new ArrayList<AvNota>();
-		this.avaliacoesFeitasTexto = new ArrayList<AvTexto>();
+		this.login = login;
+		this.senha = senha;
+		this.papeis = new ArrayList<Papel>();
+		this.avaliacoesFeitas = new ArrayList<Avaliacao>();
 	}
 
-	public Integer getId() {
-		return id;
+	@JsonIgnore
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return this.papeis;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	@JsonIgnore
+	@Override
+	public String getPassword() {
+		return this.senha;
 	}
 
-	public String getNome() {
-		return nome;
+	@Override
+	public String getUsername() {
+		return this.login;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	@JsonIgnore
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@JsonIgnore
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@JsonIgnore
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@JsonIgnore
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
 	}
 	
-	public String getTipo() {
-		return tipo_usuario;
+	public void setSenha(String senha) {
+		this.senha = new BCryptPasswordEncoder().encode(senha);
 	}
 	
+	public void setPapeis(List<Papel> papeis) {
+		this.papeis = papeis;
+	}
+
+	public List<Avaliacao> getAvaliacoesFeitas() {
+		return avaliacoesFeitas;
+	}
 }

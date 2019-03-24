@@ -1,5 +1,6 @@
 package com.animes.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,36 +10,39 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class AvNota {
+public class Avaliacao {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private int valor;
+	@Column(nullable = false)
+	private int nota;
 	
-	@JsonBackReference(value = "usuario_notas")
+	private String texto;
+	
+	@JsonBackReference(value = "usuario_avaliacoes")
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	
-	@JsonBackReference(value = "anime_notas")
+	@JsonBackReference(value = "anime_avaliacoes")
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "anime_id")
 	private Anime anime;
 	
-	public AvNota() {}
+	public Avaliacao() {}
 
-	public AvNota(Usuario usuario, Anime anime, int valor) {
+	public Avaliacao(Usuario usuario, Anime anime, int nota, String texto) {
 		super();
 		this.usuario = usuario;
 		this.anime = anime;
-		if (valor < 0 || valor > 10) {
+		if (nota < 0 || nota > 10) {
 			throw new IllegalArgumentException("A nota precisa estar entre 0 e 10");
 		} else {
-			this.valor = valor;
+			this.nota = nota;
 		}
-		
+		this.texto = texto;
 	}
 
 	public Integer getId() {
@@ -49,20 +53,20 @@ public class AvNota {
 		this.id = id;
 	}
 
-	public int getValor() {
-		return valor;
+	public int getNota() {
+		return nota;
 	}
 
-	public void setValor(int valor) {
-		if (valor < 0 || valor > 10) {
+	public void setNota(int nota) {
+		if (nota < 0 || nota > 10) {
 			throw new IllegalArgumentException("A nota precisa estar entre 0 e 10");
 		} else {
-			this.valor = valor;
+			this.nota = nota;
 		}
 	}
 
-	public Integer getUsuarioId() {
-		return usuario.getId();
+	public String getUsuarioNome() {
+		return usuario.getUsername();
 	}
 
 	public void setUsuario(Usuario usuario) {
@@ -72,9 +76,21 @@ public class AvNota {
 	public Integer getAnimeId() {
 		return anime.getId();
 	}
+	
+	public String getAnimeNome() {
+		return anime.getNome();
+	}
 
 	public void setAnime(Anime anime) {
 		this.anime = anime;
+	}
+
+	public String getTexto() {
+		return texto;
+	}
+
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
 
 }
