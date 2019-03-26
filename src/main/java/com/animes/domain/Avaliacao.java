@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Avaliacao {
@@ -93,4 +94,8 @@ public class Avaliacao {
 		this.texto = texto;
 	}
 
+	@JsonIgnore
+	public String getUsuarioAnime() {
+		return getUsuarioNome() + getAnimeId();
+	}
 }

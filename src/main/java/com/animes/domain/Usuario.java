@@ -107,4 +107,8 @@ public class Usuario implements UserDetails{
 	public List<Avaliacao> getAvaliacoesFeitas() {
 		return avaliacoesFeitas;
 	}
+
+	public List<Papel> getPapeis() {
+		return papeis;
+	}
 }

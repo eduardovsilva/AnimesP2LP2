@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.animes.domain.Usuario;
+import com.animes.repository.PapelRepository;
 import com.animes.repository.UsuarioRepository;
 
 @RestController
@@ -16,6 +17,8 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioRepository repository;
+	@Autowired
+	private PapelRepository papelRepository;
 	
 	@GetMapping("/usuarios")
 	public List<Usuario> getUsuarios() {
@@ -32,7 +35,10 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/usuarios")
-	public void saveUsuario(@RequestBody Usuario usuario) {
+	public void saveUsuario(@RequestBody Usuario usuario) {	
+		usuario.setPapeis(papelRepository.findByTipoUsuario("ROLE_USUARIO"));
+		
 		repository.save(usuario);
+		
 	}
 }

@@ -1,5 +1,6 @@
 package com.animes.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,17 @@ public class AvaliacaoController {
 	
 	@PostMapping("/avaliacoes")
 	public void saveAvaliacao(@RequestBody Avaliacao avaliacao) {
-		repository.save(avaliacao);
+		List<Avaliacao> avaliacoes = repository.findAll();
+		List<String> avaliacoesExistentes = new ArrayList<String>();
+		
+		for (Avaliacao a: avaliacoes) {
+			avaliacoesExistentes.add(a.getUsuarioAnime());		
+		}
+			
+		if (!avaliacoesExistentes.contains(avaliacao.getUsuarioAnime())) {	
+			repository.save(avaliacao);
+		}
+		
 	}
 
 }
