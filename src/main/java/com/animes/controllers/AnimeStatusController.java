@@ -1,5 +1,6 @@
 package com.animes.controllers;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -44,20 +45,20 @@ public class AnimeStatusController {
 	}
 
 	@PutMapping("/lista/{id}")
-	public void updateStatus(@RequestBody AnimeStatus status, @PathVariable int id) {
+	public void updateStatus(@RequestBody AnimeStatus status, @PathVariable int id, Principal principal) {
 		Optional<AnimeStatus> statusFound = repository.findById(id);
 
-		if (statusFound.isPresent()) {
+		if (statusFound.isPresent() && principal.getName() == statusFound.get().getUsuarioNome()) {
 			status.setId(id);
 			repository.save(status);
 		}
 	}
 	
 	@DeleteMapping("/lista/{id}")
-	public void deleteStatus(@PathVariable int id) {
+	public void deleteStatus(@PathVariable int id, Principal principal) {
 		Optional<AnimeStatus> statusFound = repository.findById(id);
 
-		if (statusFound.isPresent())
+		if (statusFound.isPresent() && principal.getName() == statusFound.get().getUsuarioNome())
 			repository.deleteById(id);
 	}
 	

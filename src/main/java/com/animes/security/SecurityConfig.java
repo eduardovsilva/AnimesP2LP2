@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/h2-console/**").hasRole("ADMIN")
 		.mvcMatchers(HttpMethod.POST, "/animes", "/generos").hasRole("ADMIN")
 		.mvcMatchers(HttpMethod.PUT, "/animes/{id}", "/generos/{id}").hasRole("ADMIN")
+		.mvcMatchers(HttpMethod.DELETE, "/animes/{id}", "/generos/{id}").hasRole("ADMIN")
 		.mvcMatchers(HttpMethod.GET, "/generos", "/usuarios",  "/avaliacoes", "/lista").hasRole("ADMIN")
 		.mvcMatchers(HttpMethod.GET,"/animes", "/animes/{id}", "/usuarios/{login}").permitAll()
 		.mvcMatchers(HttpMethod.POST, "/usuarios").permitAll()

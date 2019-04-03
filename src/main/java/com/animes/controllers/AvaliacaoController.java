@@ -1,5 +1,6 @@
 package com.animes.controllers;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,26 +39,26 @@ public class AvaliacaoController {
 			avaliacoesExistentes.add(a.getUsuarioAnime());		
 		}
 			
-		if (!avaliacoesExistentes.contains(avaliacao.getUsuarioAnime())) {	
+		if (!avaliacoesExistentes.contains(avaliacao.getUsuarioAnime())) {
 			repository.save(avaliacao);
 		}
 	}
 
 	@PutMapping("/avaliacoes/{id}")
-	public void updateAvaliacao(@RequestBody Avaliacao avaliacao, @PathVariable int id) {
+	public void updateAvaliacao(@RequestBody Avaliacao avaliacao, @PathVariable int id, Principal principal) {
 		Optional<Avaliacao> avaliacaoFound = repository.findById(id);
 
-		if (avaliacaoFound.isPresent()) {
+		if (avaliacaoFound.isPresent() && principal.getName() == avaliacaoFound.get().getUsuarioNome()) {
 			avaliacao.setId(id);
 			repository.save(avaliacao);
 		}
 	}
-	
-	@DeleteMapping("/avaliacoes/{id}")
-	public void deleteAvalicacao(@PathVariable int id) {
-		Optional<Avaliacao> avaliacaoFound = repository.findById(id);
 
-		if (avaliacaoFound.isPresent())
+	@DeleteMapping("/avaliacoes/{id}")
+	public void deleteAvalicacao(@PathVariable int id, Principal principal) {
+		Optional<Avaliacao> avaliacaoFound = repository.findById(id);
+		
+		if (avaliacaoFound.isPresent() && principal.getName() == avaliacaoFound.get().getUsuarioNome())
 			repository.deleteById(id);
 	}
 }
