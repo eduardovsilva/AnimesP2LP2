@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,13 +32,17 @@ public class Usuario implements UserDetails{
 	
 	@ManyToMany
 	@JoinTable(name = "usuarios_papeis",
-				joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "login"),
+				joinColumns = @JoinColumn(name = "usuario_login", referencedColumnName = "login"),
 				inverseJoinColumns = @JoinColumn(name = "papel_id", referencedColumnName = "tipoUsuario"))
 	private List<Papel> papeis; 
 	
 	@JsonManagedReference(value = "usuario_avaliacoes")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
 	private List<Avaliacao> avaliacoesFeitas;
+	
+	@JsonManagedReference(value = "usuario_lista")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+	private List<AnimeStatus> listaPessoal;
 	
 	public Usuario() {}
 
@@ -108,7 +111,8 @@ public class Usuario implements UserDetails{
 		return avaliacoesFeitas;
 	}
 
-	public List<Papel> getPapeis() {
-		return papeis;
+	public List<AnimeStatus> getListaPessoal() {
+		return listaPessoal;
 	}
+	
 }

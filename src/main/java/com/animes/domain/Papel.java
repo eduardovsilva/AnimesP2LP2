@@ -22,9 +22,10 @@ public class Papel implements GrantedAuthority {
 	private String tipoUsuario;
 	
 	@ManyToMany(fetch = FetchType.EAGER,
-        	cascade = {
+        		cascade = {
         			CascadeType.PERSIST,
-        			CascadeType.MERGE
+        			CascadeType.MERGE,
+        			CascadeType.REFRESH
             }, mappedBy = "papeis")
 	private List<Usuario> usuarios;
 	

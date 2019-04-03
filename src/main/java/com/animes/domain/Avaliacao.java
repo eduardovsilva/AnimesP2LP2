@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Avaliacao {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -20,11 +20,11 @@ public class Avaliacao {
 	@Column(nullable = false)
 	private int nota;
 	
-	private String texto;
-	
+	private String texto;	
+
 	@JsonBackReference(value = "usuario_avaliacoes")
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "usuario_id")
+	@JoinColumn(name = "usuario_login")
 	private Usuario usuario;
 	
 	@JsonBackReference(value = "anime_avaliacoes")
@@ -45,11 +45,7 @@ public class Avaliacao {
 		}
 		this.texto = texto;
 	}
-
-	public Integer getId() {
-		return id;
-	}
-
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -98,4 +94,9 @@ public class Avaliacao {
 	public String getUsuarioAnime() {
 		return getUsuarioNome() + getAnimeId();
 	}
+
+	public Integer getId() {
+		return id;
+	}
+	
 }

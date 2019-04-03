@@ -29,13 +29,17 @@ public class Anime {
 	@ManyToMany
 	@JoinTable(name = "animes_generos",
 	        	joinColumns = @JoinColumn(name = "anime_id", referencedColumnName = "id"),
-	        	inverseJoinColumns = @JoinColumn(name = "genero_id", referencedColumnName = "nome"))
+	        	inverseJoinColumns = @JoinColumn(name = "genero_id", referencedColumnName = "id"))
 	private List<Genero> generos;
 	
 	@JsonManagedReference(value = "anime_avaliacoes")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "anime")
 	private List<Avaliacao> avaliacoes;
 
+	@JsonManagedReference(value = "anime_lista")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "anime")
+	private List<AnimeStatus> listaStatus;
+	
 	public Anime() {}
 	
 	public Anime(String nome, int episodios, String classificacao) {
@@ -91,8 +95,7 @@ public class Anime {
 		float soma = 0;
 		for (Avaliacao n: avaliacoes) {
 			soma += n.getNota();
-		}
-		
+		}	
 		return soma / avaliacoes.size();
 	}
 }

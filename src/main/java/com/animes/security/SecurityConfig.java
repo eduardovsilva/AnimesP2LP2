@@ -21,10 +21,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-		.mvcMatchers("/h2-console/**").hasRole("ADMIN")
+		.antMatchers("/h2-console/**").hasRole("ADMIN")
 		.mvcMatchers(HttpMethod.POST, "/animes", "/generos").hasRole("ADMIN")
-		.mvcMatchers(HttpMethod.GET, "/generos", "/usuarios",  "/avaliacoes").hasRole("ADMIN")
-		.mvcMatchers(HttpMethod.GET,"/animes", "/animes/{id}", "/usuarios/{id}").permitAll()
+		.mvcMatchers(HttpMethod.PUT, "/animes/{id}", "/generos/{id}").hasRole("ADMIN")
+		.mvcMatchers(HttpMethod.GET, "/generos", "/usuarios",  "/avaliacoes", "/lista").hasRole("ADMIN")
+		.mvcMatchers(HttpMethod.GET,"/animes", "/animes/{id}", "/usuarios/{login}").permitAll()
 		.mvcMatchers(HttpMethod.POST, "/usuarios").permitAll()
 		.anyRequest().authenticated()
 		.and().formLogin().permitAll()

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.animes.domain.Anime;
@@ -37,6 +38,16 @@ public class AnimeController {
 	public void saveAnime(@RequestBody Anime anime) {
 		 repository.save(anime);
 
+	}
+	
+	@PutMapping("/animes/{id}")
+	public void updateAnime(@RequestBody Anime anime, @PathVariable int id) {
+		Optional<Anime> animeFound = repository.findById(id);
+
+		if (animeFound.isPresent()) {
+			anime.setId(id);
+			repository.save(anime);
+		}	
 	}
 
 	@DeleteMapping("/animes/{id}")
