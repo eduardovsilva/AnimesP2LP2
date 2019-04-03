@@ -68,6 +68,7 @@ public class AnimeStatus {
 	public Integer getAnimeId() {
 		return anime.getId();
 	}
+	
 	@JsonIgnore
 	public String getUsuarioAnime() {
 		return getUsuarioNome() + getAnimeId();

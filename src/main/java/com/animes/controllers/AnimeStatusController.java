@@ -48,7 +48,7 @@ public class AnimeStatusController {
 	public void updateStatus(@RequestBody AnimeStatus status, @PathVariable int id, Principal principal) {
 		Optional<AnimeStatus> statusFound = repository.findById(id);
 
-		if (statusFound.isPresent() && principal.getName() == statusFound.get().getUsuarioNome()) {
+		if (statusFound.isPresent() && principal.getName().equals(statusFound.get().getUsuarioNome())) {
 			status.setId(id);
 			repository.save(status);
 		}
@@ -58,7 +58,7 @@ public class AnimeStatusController {
 	public void deleteStatus(@PathVariable int id, Principal principal) {
 		Optional<AnimeStatus> statusFound = repository.findById(id);
 
-		if (statusFound.isPresent() && principal.getName() == statusFound.get().getUsuarioNome())
+		if (statusFound.isPresent() && principal.getName().equals(statusFound.get().getUsuarioNome()))
 			repository.deleteById(id);
 	}
 	

@@ -114,5 +114,5 @@ public class Usuario implements UserDetails{
 	public List<AnimeStatus> getListaPessoal() {
 		return listaPessoal;
 	}
-	
+
 }

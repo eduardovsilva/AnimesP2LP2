@@ -49,6 +49,7 @@ public class Anime {
 		this.classificacao = classificacao;
 		this.generos =  new ArrayList<Genero>();
 		this.avaliacoes = new ArrayList<Avaliacao>();
+		this.listaStatus = new ArrayList<AnimeStatus>();
 	}
 
 	public Integer getId() {
@@ -90,6 +91,10 @@ public class Anime {
 	public List<Avaliacao> getAvaliacoes() {
 		return avaliacoes;
 	}
+	
+	public List<AnimeStatus> getListaStatus() {
+		return listaStatus;
+	}
 		
 	public float getNotaMedia() {
 		float soma = 0;
@@ -98,5 +103,6 @@ public class Anime {
 		}	
 		return soma / avaliacoes.size();
 	}
+
 }
 

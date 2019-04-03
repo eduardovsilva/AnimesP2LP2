@@ -1,5 +1,6 @@
 package com.animes.controllers;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,20 +51,23 @@ public class UsuarioController {
 	}
 	
 	@PutMapping("/usuarios/{login}")
-	public void updateUsuario(@RequestBody Usuario usuario, @PathVariable String login) {
+	public void updateUsuario(@RequestBody Usuario usuario, @PathVariable String login, Principal principal) {
 		Optional<Usuario> usuarioFound = repository.findById(login);
-
-		if (usuarioFound.isPresent()) {
+		
+		if (usuarioFound.isPresent() && principal.getName().equals(login)) {
 			usuario.setLogin(login);
 			repository.save(usuario);
 		}
 	}
 	
 	@DeleteMapping("/usuarios/{login}")
-	public void deleteUsuario(@PathVariable String login) {
+	public void deleteUsuario(@PathVariable String login, Principal principal) {
 		Optional<Usuario> usuarioFound = repository.findById(login);
 
-		if (usuarioFound.isPresent())
+		if (usuarioFound.isPresent() && principal.getName().equals(login)) {
 			repository.deleteById(login);
+		}
+		
+			
 	}
 }

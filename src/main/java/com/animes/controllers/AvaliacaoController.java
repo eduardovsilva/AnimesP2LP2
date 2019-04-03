@@ -48,7 +48,7 @@ public class AvaliacaoController {
 	public void updateAvaliacao(@RequestBody Avaliacao avaliacao, @PathVariable int id, Principal principal) {
 		Optional<Avaliacao> avaliacaoFound = repository.findById(id);
 
-		if (avaliacaoFound.isPresent() && principal.getName() == avaliacaoFound.get().getUsuarioNome()) {
+		if (avaliacaoFound.isPresent() && principal.getName().equals(avaliacaoFound.get().getUsuarioNome())) {
 			avaliacao.setId(id);
 			repository.save(avaliacao);
 		}
@@ -58,7 +58,7 @@ public class AvaliacaoController {
 	public void deleteAvalicacao(@PathVariable int id, Principal principal) {
 		Optional<Avaliacao> avaliacaoFound = repository.findById(id);
 		
-		if (avaliacaoFound.isPresent() && principal.getName() == avaliacaoFound.get().getUsuarioNome())
+		if (avaliacaoFound.isPresent() && principal.getName().equals(avaliacaoFound.get().getUsuarioNome()))
 			repository.deleteById(id);
 	}
 }
