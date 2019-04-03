@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "d5355201-412e-40f2-976c-a48fa6853fb9",
+		"name": "AnimesP2LP2 - USUARIO",
+		"description": "Coleção das resuisições do usuário.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "saveAvaliacao",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nota\": 2,\n\t\"texto\": \"ashuas\",\n\t\"usuario\": {\n\t\t\"login\": \"dudu\"\n\t},\n\t\"anime\": {\n\t\t\"id\": 2\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/avaliacoes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"avaliacoes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saveStatus",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"status\": \"plan to watch\",\n\t\"usuario\": {\n\t\t\"login\": \"joao\"\n\t},\n\t\"anime\": {\n\t\t\"id\": 2\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/lista",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lista"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateUsuario",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"joao\",\n\t\"senha\": \"joao1234\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuarios/joao",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"joao"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateAvaliacao",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nota\": 6,\n    \"texto\": \"as\",\n    \"usuario\": {\n        \"login\": \"dudu\"\n    },\n    \"anime\": {\n        \"id\": 1\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/avaliacoes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"avaliacoes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateStatus",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"terminado\",\n    \"usuario\": {\n    \t\"login\": \"dudu\"\n    },\n    \"anime\": {\n    \t\"id\": 1\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/lista/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lista",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteAvalicacao",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/avaliacoes/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"avaliacoes",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteStatus",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/lista/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lista",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUsuario",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuarios/joao",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"joao"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "joao123",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "joao",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6010dfc7-1b4f-4330-9350-3d158caf1d25",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "4d717317-1a91-4727-a7ca-4827b319f32e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
