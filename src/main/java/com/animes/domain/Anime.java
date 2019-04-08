@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,16 +14,20 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Anime {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String nome;	
+	@Column(nullable = false)
+	private String nome;
+	
 	private int episodios;
 	private String classificacao;
 	
@@ -102,6 +107,10 @@ public class Anime {
 			soma += n.getNota();
 		}	
 		return soma / avaliacoes.size();
+	}
+
+	public void setGeneros(List<Genero> generos) {
+		this.generos = generos;
 	}
 
 }

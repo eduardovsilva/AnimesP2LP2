@@ -9,8 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Avaliacao {
 	
 	@Id
@@ -24,7 +26,7 @@ public class Avaliacao {
 
 	@JsonBackReference(value = "usuario_avaliacoes")
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "usuario_login")
+	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	
 	@JsonBackReference(value = "anime_avaliacoes")
@@ -61,6 +63,10 @@ public class Avaliacao {
 			this.nota = nota;
 		}
 	}
+	
+	public Integer getUsuarioId() {
+		return usuario.getId();
+	}
 
 	public String getUsuarioNome() {
 		return usuario.getUsername();
@@ -69,7 +75,7 @@ public class Avaliacao {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
+	
 	public Integer getAnimeId() {
 		return anime.getId();
 	}
@@ -92,7 +98,7 @@ public class Avaliacao {
 
 	@JsonIgnore
 	public String getUsuarioAnime() {
-		return getUsuarioNome() + getAnimeId();
+		return this.getUsuarioId() + "" + this.getAnimeId();
 	}
 
 	public Integer getId() {

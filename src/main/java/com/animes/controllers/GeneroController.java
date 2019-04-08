@@ -1,9 +1,10 @@
 package com.animes.controllers;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,34 +21,46 @@ public class GeneroController {
 
 	@Autowired
 	private GeneroRepository repository;
-	
+
 	@GetMapping("/generos")
-	public List<Genero> getGeneros() {
-		List<Genero> generos = repository.findAll();
-		
-		return generos;
+	public ResponseEntity<?> getGeneros() {
+		return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/generos")
-	public void saveGenero(@RequestBody Genero genero) {
-		repository.save(genero);
+	public ResponseEntity<?> saveGenero(@RequestBody Genero genero) {
+
+		if (repository.findByNome(genero.getNome()) != null) {
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+		} else {
+			repository.save(genero);
+			return new ResponseEntity<>(HttpStatus.CREATED);
+		}
 	}
-	
+
 	@PutMapping("/generos/{id}")
-	public void updateGenero(@RequestBody Genero genero, @PathVariable int id) {
+	public ResponseEntity<?> updateGenero(@RequestBody Genero genero, @PathVariable int id) {
 		Optional<Genero> generoFound = repository.findById(id);
 
 		if (generoFound.isPresent()) {
 			genero.setId(id);
 			repository.save(genero);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@DeleteMapping("/generos/{id}")
-	public void deleteGenero(@PathVariable int id) {
+	public ResponseEntity<?> deleteGenero(@PathVariable int id) {
 		Optional<Genero> generoFound = repository.findById(id);
 
-		if (generoFound.isPresent())
+		if (generoFound.isPresent()) {
 			repository.deleteById(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
 	}
 }

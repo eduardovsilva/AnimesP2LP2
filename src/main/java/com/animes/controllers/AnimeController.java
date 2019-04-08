@@ -1,9 +1,10 @@
 package com.animes.controllers;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,41 +22,52 @@ public class AnimeController {
 	private AnimeRepository repository;
 
 	@GetMapping("/animes")
-	public List<Anime> getAllAnimes() {
-		List<Anime> animes = repository.findAll();
-	
-		return animes;
+	public ResponseEntity<?> getAnimes() {
+		return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
 	}
 
 	@GetMapping("/animes/{id}")
-	private Optional<Anime> getAnime(@PathVariable int id) {
+	private ResponseEntity<?> getAnime(@PathVariable int id) {
 		Optional<Anime> animeFound = repository.findById(id);
 
-		return animeFound;
+		if (animeFound.isPresent()) {
+			return new ResponseEntity<>(animeFound.get(), HttpStatus.FOUND);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	@PostMapping("/animes")
-	public void saveAnime(@RequestBody Anime anime) {
+	public ResponseEntity<?> saveAnime(@RequestBody Anime anime) {
 		 repository.save(anime);
+		 return new ResponseEntity<>(HttpStatus.CREATED);
 
 	}
 	
 	@PutMapping("/animes/{id}")
-	public void updateAnime(@RequestBody Anime anime, @PathVariable int id) {
+	public ResponseEntity<?> updateAnime(@RequestBody Anime anime, @PathVariable int id) {
 		Optional<Anime> animeFound = repository.findById(id);
 
 		if (animeFound.isPresent()) {
 			anime.setId(id);
 			repository.save(anime);
-		}	
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@DeleteMapping("/animes/{id}")
-	public void deleteAnime(@PathVariable int id) {
+	public ResponseEntity<?> deleteAnime(@PathVariable int id) {
 		Optional<Anime> animeFound = repository.findById(id);
 
-		if (animeFound.isPresent())
+		if (animeFound.isPresent()) {
 			repository.deleteById(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+			
 	}
 
 }

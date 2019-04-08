@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -20,19 +22,23 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Usuario implements UserDetails{
+public class Usuario implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(unique = true)
-	private String login;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	
-	private String senha;
+	@Column(nullable = false, unique = true)
+	private String username;
+	
+	@Column(nullable = false)
+	private String password;
 	
 	@ManyToMany
 	@JoinTable(name = "usuarios_papeis",
-				joinColumns = @JoinColumn(name = "usuario_login", referencedColumnName = "login"),
+				joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"),
 				inverseJoinColumns = @JoinColumn(name = "papel_id", referencedColumnName = "tipoUsuario"))
 	private List<Papel> papeis; 
 	
@@ -46,10 +52,10 @@ public class Usuario implements UserDetails{
 	
 	public Usuario() {}
 
-	public Usuario(String login, String senha) {
+	public Usuario(String username, String password) {
 		super();
-		this.login = login;
-		this.senha = senha;
+		this.username = username;
+		this.password = password;
 		this.papeis = new ArrayList<Papel>();
 		this.avaliacoesFeitas = new ArrayList<Avaliacao>();
 	}
@@ -60,47 +66,46 @@ public class Usuario implements UserDetails{
 		return this.papeis;
 	}
 
-	@JsonIgnore
 	@Override
 	public String getPassword() {
-		return this.senha;
+		return this.password;
 	}
 
 	@Override
 	public String getUsername() {
-		return this.login;
+		return this.username;
 	}
 
-	@JsonIgnore
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}
 
-	@JsonIgnore
 	@Override
 	public boolean isAccountNonLocked() {
 		return true;
 	}
 
-	@JsonIgnore
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
 
-	@JsonIgnore
 	@Override
 	public boolean isEnabled() {
 		return true;
 	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
-	public void setSenha(String senha) {
-		this.senha = new BCryptPasswordEncoder().encode(senha);
+	public void setPassword(String password) {
+		this.password = new BCryptPasswordEncoder().encode(password);
 	}
 	
 	public void setPapeis(List<Papel> papeis) {
@@ -113,6 +118,10 @@ public class Usuario implements UserDetails{
 
 	public List<AnimeStatus> getListaPessoal() {
 		return listaPessoal;
+	}
+
+	public Integer getId() {
+		return id;
 	}
 
 }
