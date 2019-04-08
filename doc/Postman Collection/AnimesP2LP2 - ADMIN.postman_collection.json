@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "4c2d4b40-92ab-4810-a80c-edbcbfffc227",
-		"name": "AnimesP2LP2- ADMIN",
+		"name": "AnimesP2LP2 - ADMIN",
 		"description": "Coleção das requisições do admin.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -112,7 +112,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n        \"nome\": \"teste3\",\n        \"episodios\": 28,\n        \"classificacao\": \"pg-13\",\n        \"generos\": [\n            {\n                \"nome\": \"genero1\"\n            },\n            {\n                \"nome\": \"genero3\"\n            }\n        ]\n    }"
+					"raw": "{\n        \"nome\": \"teste3\",\n        \"episodios\": 28,\n        \"classificacao\": \"pg-13\",\n        \"generos\": [\n            {\n                \"id\": 1\n            },\n            {\n                \"id\": 3\n            }\n        ]\n    }"
 				},
 				"url": {
 					"raw": "http://localhost:8080/animes",

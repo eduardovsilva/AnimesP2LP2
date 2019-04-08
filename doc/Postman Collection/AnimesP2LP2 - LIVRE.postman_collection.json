@@ -20,17 +20,18 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"login\": \"abc\",\n\t\"senha\": \"defg\"\n}"
+					"raw": "{\n\t\"username\": \"abc\",\n\t\"password\": \"123\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/usuarios",
+					"raw": "http://localhost:8080/usuarios/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"usuarios"
+						"usuarios",
+						""
 					]
 				}
 			},
