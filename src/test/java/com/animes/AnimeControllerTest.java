@@ -55,7 +55,7 @@ public class AnimeControllerTest extends DefaultTest {
 		String uri = "/animes";
 	
 
-		String inputJson = "{\"nome\":\"teste\",\"episodios\":6,\"classificacao\":\"abc\",\"generos\":[{\"id\":1},{\"id\":2}]}";
+		String inputJson = "{\"nome\":\"teste\",\"episodios\":6,\"classificacao\":\"abc\",\"generos\":[{\"id\":1}]}";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri).with((httpBasic("dudu", "dudu123")))
 				.contentType(MediaType.APPLICATION_JSON).content(inputJson)).andReturn();
 
